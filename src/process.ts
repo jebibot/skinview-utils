@@ -112,7 +112,7 @@ export function loadSkinToCanvas(canvas: TextureCanvas, image: TextureSource): v
 		}
 	}
 
-	const context = canvas.getContext("2d") as CanvasContext;
+	const context = canvas.getContext("2d", { willReadFrequently: true }) as CanvasContext;
 	if (isOldFormat) {
 		const sideLength = image.width;
 		canvas.width = sideLength;
@@ -233,7 +233,7 @@ export function inferModelType(canvas: TextureCanvas): ModelType {
 	// If the 4 areas are all black or all white, the skin is also considered as slim.
 
 	const scale = computeSkinScale(canvas.width);
-	const context = canvas.getContext("2d") as CanvasContext;
+	const context = canvas.getContext("2d", { willReadFrequently: true }) as CanvasContext;
 	const checkTransparency = (x: number, y: number, w: number, h: number): boolean =>
 		hasTransparency(context, x * scale, y * scale, w * scale, h * scale);
 	const checkBlack = (x: number, y: number, w: number, h: number): boolean =>
